@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tic-tac-toe</title>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Patua+One&quot"
+      ;rel="stylesheet"
+    />
+
+    <style>
+      body {
+        text-align: center;
+        background-color: seagreen;
+      }
+
+      table {
+        margin: auto;
+        /* border-collapse: collapse; */
+      }
+
+      td {
+        height: 80px;
+        width: 80px;
+        background-color: black;
+        border: 1px solid white;
+        border-radius: 10px;
+        margin: 20px;
+        font-size: 30px;
+        text-align: center;
+        color: brown;
+      }
+
+      .hide {
+        display: none;
+      }
+
+      .win {
+        width: 300px;
+        height: 60px;
+        background-color: purple;
+        color: wheat;
+        border: 2px solid palevioletred;
+        border-radius: 25px;
+        margin: 10px auto;
+        font-size: 40px;
+        text-align: center;
+      }
+
+      .winner span {
+        font-size: 40px;
+        display: block;
+      }
+
+      #reload {
+        width: 240px;
+        height: 100px;
+        margin: 10px auto;
+        display: block;
+        border: 2px solid #e85a4f;
+        border-radius: 10px;
+        background-color: #272727;
+        font-size: 40px;
+        color: #e85a4f;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1><u>---Tic-Tac-Toe---</u></h1>
+    <table>
+      <tr>
+        <td class="Cell-1"></td>
+        <td class="Cell-2"></td>
+        <td class="Cell-3"></td>
+      </tr>
+      <tr>
+        <td class="Cell-4"></td>
+        <td class="Cell-5"></td>
+        <td class="Cell-6"></td>
+      </tr>
+      <tr>
+        <td class="Cell-7"></td>
+        <td class="Cell-8"></td>
+        <td class="Cell-9"></td>
+      </tr>
+    </table>
+
+    <div class="win hide"></div>
+    <button onclick="location.reload();" id="reload">Play again</button>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      $(document).ready(function () {
+        var user = 1;
+        var play = true;
+
+        $("td").click(function () {
+          if ($(this).text() == "" && play) {
+            if (user % 2 == 0) {
+              $(this).append("O");
+              $(this).css("color", "red");
+            } else {
+              $(this).append("X");
+              $(this).css("color", "blue");
+            }
+            user++;
+            if (winner() != "DRAW" && winner() != "") {
+              if (winner() == "X") {
+                $(".win")
+                  .css({ display: "block" })
+                  .append("<span>Winner is X</span>");
+                // console.log("x");
+              } else {
+                $(".win")
+                  .css({ display: "block" })
+                  .append("<span>Winner is O</span>");
+              }
+              play = false;
+            }
+          }
+        });
+
+        function winner() {
+          var a1 = $(".Cell-1").text();
+          var a2 = $(".Cell-2").text();
+          var a3 = $(".Cell-3").text();
+          var a4 = $(".Cell-4").text();
+          var a5 = $(".Cell-5").text();
+          var a6 = $(".Cell-6").text();
+          var a7 = $(".Cell-7").text();
+          var a8 = $(".Cell-8").text();
+          var a9 = $(".Cell-9").text();
+
+          // check rows
+          if (a1 == a2 && a2 == a3 && a1 != "") {
+            return a1;
+          } else if (a4 == a5 && a5 == a6 && a4 != "") {
+            return a4;
+          } else if (a7 == a8 && a8 == a9 && a7 != "") {
+            return a7;
+          }
+
+          // check column
+          else if (a1 == a4 && a4 == a7 && a1 != "") {
+            return a7;
+          } else if (a2 == a5 && a5 == a8 && a2 != "") {
+            return a8;
+          } else if (a3 == a6 && a6 == a9 && a3 != "") {
+            return a9;
+          }
+
+          // check digaonal
+          else if (a1 == a5 && a5 == a9 && a1 != "") {
+            return a1;
+          } else if (a3 == a5 && a5 == a7 && a3 != "") {
+            return a7;
+          } else {
+            return "DRAW";
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
